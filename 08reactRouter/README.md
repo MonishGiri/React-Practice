@@ -7,6 +7,7 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+# React Router
 ## Key Points to remember:-
 
 Create a layout.jsx file to tell how the layout will look like. It will use the Outlet component where you want the other components to appear.
@@ -29,7 +30,7 @@ function Layout() {
 
 export default Layout;
 ```
-# React Router
+
 ### Use of <Link> and <NavLink>
 
 - We use the <Link to='${yourpath}'> tag instead of html <a> tag because the <a> tag reloads the whole page which violets the usage of react.
