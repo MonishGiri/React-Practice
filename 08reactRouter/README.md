@@ -31,11 +31,11 @@ function Layout() {
 export default Layout;
 ```
 
-### Use of <Link> and <NavLink>
+### Use of Link tag and NavLink
 
-- We use the <Link to='${yourpath}'> tag instead of html <a> tag because the <a> tag reloads the whole page which violets the usage of react.
+- We use the Link to='${yourpath}' tag instead of html <a> tag because the <a> tag reloads the whole page which violets the usage of react.
 
-- We use the <NavLink to='${yourpath}'> as it provides various property such as isActive which is used to check if the link is currently active or not.
+- We use the NavLink to='${yourpath}' as it provides various property such as isActive which is used to check if the link is currently active or not.
 
 ```javascript
 <Link
@@ -150,4 +150,3 @@ function User() {
 
 export default User;
 ```
-- 
