@@ -52,7 +52,7 @@ import UserContext from '../context/UserContext'
 function Login() {
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = useContext();
+    const {setUser} = useContext(UserContext);
     const handleSubmit = (e) =>{
         e.preventDefault();
         setUser({username, password});
@@ -76,7 +76,7 @@ Read the data set by the Login.jsx in Profile.jsx as follows:-
 import React,{useContext} from 'react'
 import UserContext from '../context/UserContext'
 function Profile() {
-    const {user} = useContext();
+    const {user} = useContext(UserContext);
 
     if(!user) return <div>Please Login</div>
     return <div>Welcome {user.username}</div>
