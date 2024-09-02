@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media print {
+    /* Ensure background colors are printed */
+    * {
+      -webkit-print-color-adjust: exact; /* For WebKit browsers */
+      print-color-adjust: exact;         /* For other browsers */
+    }
+  
+    /* Optionally hide elements you don't want to print */
+    /* For example, buttons or navigation bars */
+    .no-print {
+      display: none;
+    }
+  }
+  
