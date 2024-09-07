@@ -3,10 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {login as authLogin } from '../store/authSlice';
 import {Button, Input, Logo} from './index';
 import { useDispatch } from 'react-redux'; 
-import authservice from '../appwrite/auth';
 import {useForm} from 'react-hook-form';
 import authService from '../appwrite/auth';
-import {Button, Input} from './index';
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -17,10 +15,13 @@ function Login() {
         setError('');
         try {
             const session = await authService.login(data);
+            console.log("Session: "+session)
             if(session) {
                 const userData= await authService.getCurrentUser();
-                if(userData) dispatch(authLogin.login(userData));
-                navigate('/');
+                if(userData) {
+                    dispatch(authLogin(userData));
+                    navigate('/');
+                }
             }
         } catch (error) {
             setError(error.message);
@@ -30,7 +31,7 @@ function Login() {
     <div
     className='flex items-center justify-center w-full'
     >
-        <div className={`mx-auto w-full max-w-lg bg-blue-600 rounded-xl p-10 border border-black/10`}>
+        <div className={`mx-auto w-full max-w-lg bg-gray-500 rounded-xl p-10 border border-black/10`}>
             <div className='mb-2 flex justify-center'>
                 <span className='inline-block w-full max-w-[100px]:'>
                     <Logo width='100%'/>
@@ -65,7 +66,7 @@ function Login() {
                     label = "Password: "
                     type = "password"
                     placeholder = "Enter your password"
-                    {...register("Password",{
+                    {...register("password",{
                         required: true,
                     })}
                     />

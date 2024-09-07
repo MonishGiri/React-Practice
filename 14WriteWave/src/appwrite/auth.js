@@ -5,52 +5,71 @@ export class AuthService {
     client = new Client();
     account;
 
-    constructor(){
+    constructor() {
         this.client
-                .setEndpoint(config.appwriteUrl)
-                .setProject(config.appwriteProjectId);
-        this.account = new Account(this.client);
+            .setEndpoint(config.appwriteUrl) // Appwrite API endpoint
+            .setProject(config.appwriteProjectId); // Your project ID
+        this.account = new Account(this.client); // Initialize the Account object
     }
 
-    async createAccount({email, password, name}){
+    // Create an account and log in
+    async createAccount({ email, password, name }) {
         try {
+            console.log("Creating account...");
             const userAccount = await this.account.create(ID.unique(), email, password, name);
-            if(userAccount) {
-                // call another method
-                this.login(email,password);
+            if (userAccount) {
+                // Call the login method after creating the account
+                return this.login({ email, password });
+            } else {
+                return userAccount; // Handle failed account creation
             }
-            else return userAccount;
         } catch (error) {
-            console.log("Appwrite service :: createAccount :: error",error);
+            console.error("Appwrite service :: createAccount :: error", error.message);
         }
     }
 
-    async login({email, password}){
+    // Log in user and create a session
+    async login({ email, password }) {
         try {
-            return await this.account.createEmailSession(email,password);
+            console.log("Logging in...");
+            // Using createEmailSession or createEmailPasswordSession
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
-            console.log("Appwrite service :: login :: error",error);
+            console.error("Appwrite service :: login :: error", error.message);
         }
     }
 
-    async getCurrentUser(){
+    // Get current logged-in user
+    async getCurrentUser() {
         try {
-            return await this.account.get();
+            console.log("Fetching current user...");
+            const session = await this.account.getSession('current');
+            if (session) {
+                // If session exists, get user details
+                const user = await this.account.get();
+                console.log("User fetched:", user);
+                return user;
+            } else {
+                console.log("No active session found.");
+                return null;
+            }
         } catch (error) {
-            console.log("Appwrite service :: getCurrentUser :: error",error);
+            console.error("Appwrite service :: getCurrentUser :: error", error.message);
         }
+
         return null;
     }
 
-    async logout(){
+    // Log out the current user
+    async logout() {
         try {
+            console.log("Logging out...");
             await this.account.deleteSessions();
         } catch (error) {
-            console.log("Appwrite service :: logout :: error",error);
+            console.error("Appwrite service :: logout :: error", error.message);
         }
     }
 }
 
 const authService = new AuthService();
-
 export default authService;

@@ -17,6 +17,7 @@ export class Service{
 
         async createPost({title, slug, content, featuredImage, status, userId}){
             try {
+                console.log("confg content value: ",content)
                 return await this.databases.createDocument(
                     config.appwriteDatabaseId,
                     config.appwriteCollectionId,

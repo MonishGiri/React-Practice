@@ -12,7 +12,7 @@ function Home() {
         });
     },[])
   
-    if(posts.length === 0){
+    if(posts.length !== 0){
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
@@ -25,6 +25,11 @@ function Home() {
                     </div>
                 </Container>
             </div>
+        )
+    }
+    else{
+        return(
+            <h1 className="text-gray-500 dark:text-white text-3xl">Login to see the blogs</h1>
         )
     }
 }

@@ -1,4 +1,3 @@
-
 import { Container, PostForm } from '../components'
 function AddPost() {
   return (
